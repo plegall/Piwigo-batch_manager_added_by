@@ -1,0 +1,1 @@
+Batch Manager, filter používateľov, ktorí pridali fotografie
