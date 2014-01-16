@@ -1,0 +1,1 @@
+Batch Manager, filter op gebruiker die foto’s heeft toegevoegd
