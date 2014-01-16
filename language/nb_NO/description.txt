@@ -1,0 +1,1 @@
+Håndtere flere filer, filtrert på brukere som har lagt til bilder.
