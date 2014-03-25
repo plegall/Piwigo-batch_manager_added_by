@@ -1,0 +1,1 @@
+Paketinis menedžeris, filtruoti pagal nuotraukas įkėlusį vartotoją.
