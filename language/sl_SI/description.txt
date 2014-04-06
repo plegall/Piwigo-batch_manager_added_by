@@ -1,0 +1,1 @@
+Paketni upravljalnik, filtriraj glede na uporabnika ki je dodal fotografije
