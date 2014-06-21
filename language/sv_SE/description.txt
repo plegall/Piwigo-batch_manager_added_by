@@ -1,0 +1,1 @@
+Batch manager, filtrera på vem som lagt till fotot
