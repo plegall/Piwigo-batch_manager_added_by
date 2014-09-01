@@ -73,8 +73,8 @@ function bmab_add_filter_prefilter($content, &$smarty)
   return $content;
 }
 
-add_event_handler('loc_begin_element_set_global', 'bmab_perform_filter', 50, 2);
-function bmab_perform_filter()
+add_event_handler('batch_manager_register_filters', 'bmab_register_filter', 50, 2);
+function bmab_register_filter()
 {
   global $page;
 
@@ -83,7 +83,11 @@ function bmab_perform_filter()
     check_input_parameter('filter_added_by', $_POST, false, PATTERN_ID);
     $_SESSION['bulk_manager_filter']['added_by'] = $_POST['filter_added_by'];
   }
+}
 
+add_event_handler('batch_manager_perform_filters', 'bmab_perform_filter');
+function bmab_perform_filter($filter_sets)
+{
   if (isset($_SESSION['bulk_manager_filter']['added_by']))
   {
     $query = '
@@ -92,14 +96,9 @@ SELECT
   FROM '.IMAGES_TABLE.'
   WHERE added_by = '.$_SESSION['bulk_manager_filter']['added_by'].'
 ;';
-    if (empty($page['cat_elements_id']))
-    {
-      $page['cat_elements_id'] = array_from_query($query, 'id');
-    }
-    else
-    {
-      $page['cat_elements_id'] = array_intersect($page['cat_elements_id'], array_from_query($query, 'id'));
-    }
+    $filter_sets[] = array_from_query($query, 'id');
   }
+
+  return $filter_sets;
 }
 ?>
