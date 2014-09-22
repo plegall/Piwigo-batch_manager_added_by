@@ -73,16 +73,17 @@ function bmab_add_filter_prefilter($content, &$smarty)
   return $content;
 }
 
-add_event_handler('batch_manager_register_filters', 'bmab_register_filter', 50, 2);
-function bmab_register_filter()
+add_event_handler('batch_manager_register_filters', 'bmab_register_filter');
+function bmab_register_filter($filters)
 {
-  global $page;
-
   if (isset($_POST['filter_added_by_use']))
   {
     check_input_parameter('filter_added_by', $_POST, false, PATTERN_ID);
-    $_SESSION['bulk_manager_filter']['added_by'] = $_POST['filter_added_by'];
+    
+    $filters['added_by'] = $_POST['filter_added_by'];
   }
+
+  return $filters;
 }
 
 add_event_handler('batch_manager_perform_filters', 'bmab_perform_filter');
