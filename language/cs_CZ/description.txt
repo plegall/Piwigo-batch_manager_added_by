@@ -1,0 +1,1 @@
+Batch Manager, funkce pro možnost filtrace fotografií podle uživatele, který je vložil.
