@@ -1,0 +1,2 @@
+Gestor de processament per lots, filtrat per usuari que ha afegit fotos
+
