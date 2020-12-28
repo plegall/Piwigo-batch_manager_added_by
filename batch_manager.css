@@ -1,0 +1,11 @@
+#filter_added_by::before {
+  content: '\e835';
+  font-size: 17px;
+  position: absolute;
+  font-family: "fontello";
+  color: #6E6E6E;
+  pointer-events: none;
+
+  margin-left: 257px;
+  margin-top: 35px;
+}

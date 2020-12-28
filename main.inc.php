@@ -45,29 +45,37 @@ SELECT
 function bmab_add_filter_prefilter($content, &$smarty)
 {
   // first we add the (hidden by default) block to select the user
-  $pattern = '#</ul>\s*<p class="actionButtons">#ms';
+  $pattern = '#</ul>\s*<div class=\'noFilter\'>#ms';
   $replacement = '
       <li id="filter_added_by" {if !isset($filter.added_by)}style="display:none"{/if}>
         <a href="#" class="removeFilter" title="remove this filter"><span>[x]</span></a>
         <input type="checkbox" name="filter_added_by_use" class="useFilterCheckbox" {if isset($filter.added_by)}checked="checked"{/if}>
-        {\'Added by %s\'|@translate|sprintf:""}
-        <select name="filter_added_by">
+        <p>{\'Added by %s\'|@translate|sprintf:""}</p>
+        <select name="filter_added_by" size="1">
           {html_options options=$added_by_options selected=$added_by_selected}
         </select>
       </li>
     </ul>
 
-    <p class="actionButtons">
-';
+    <div class="noFilter">';
   $content = preg_replace($pattern, $replacement, $content);
 
   // then we add the "Added by" in the filter selector
-  $pattern = '#</select>\s*<a id="removeFilters"#ms';
+  $pattern = '#</div>\s*<a id="removeFilters"#ms';
   $replacement = '
-<option value="filter_added_by" {if isset($filter.added_by)}disabled="disabled"{/if}>{\'Added by %s\'|@translate|sprintf:""}</option>
-      </select>
-      <a id="removeFilters"
-';
+            <a data-value="filter_added_by" {if isset($filter.added_by)}disabled="disabled"{/if}>{\'Added by %s\'|@translate|sprintf:""}</a>
+          </div>
+          <a id="removeFilters"';
+  $content = preg_replace($pattern, $replacement, $content);
+
+  // add specific CSS instructions
+  $pattern = '#{footer_script}#';
+  $replacement = '{combine_css path="plugins/batch_manager_added_by/batch_manager.css"}
+{*
+{if $themeconf.id eq "roma"}{combine_css path="plugins/batch_manager_added_by/batch_manager_roma.css"}{/if}
+*}
+
+{footer_script}';
   $content = preg_replace($pattern, $replacement, $content);
 
   return $content;
