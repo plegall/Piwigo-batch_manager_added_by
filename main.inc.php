@@ -42,7 +42,7 @@ SELECT
   $template->set_prefilter('batch_manager_global', 'bmab_add_filter_prefilter');
 }
 
-function bmab_add_filter_prefilter($content, &$smarty)
+function bmab_add_filter_prefilter($content)
 {
   // first we add the (hidden by default) block to select the user
   $pattern = '#</ul>\s*<div class=\'noFilter\'>#ms';
